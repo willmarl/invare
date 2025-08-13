@@ -1,11 +1,12 @@
 import "./Inventory.css";
 import Toolbar from "./Toolbar";
+import InventoryView from "./InventoryView";
 
 function Inventory() {
   return (
     <div className="inventory">
-      Inventory page
       <Toolbar />
+      <InventoryView />
     </div>
   );
 }

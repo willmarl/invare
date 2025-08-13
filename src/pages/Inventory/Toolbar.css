@@ -3,7 +3,7 @@
 .toolbar {
   border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  border-radius: 24px;
+  border-radius: 16px 16px 0 0;
   background: #fff;
   padding: 20px 28px;
   display: flex;
@@ -124,7 +124,6 @@
 
 @media (max-width: 768px) {
   .toolbar {
-    border-radius: 18px;
     padding: 16px 16px;
     gap: 14px;
   }
@@ -201,7 +200,6 @@
   .toolbar {
     padding: 12px 12px;
     gap: 12px;
-    border-radius: 14px;
   }
 
   .toolbar__top {
