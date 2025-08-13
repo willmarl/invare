@@ -1,12 +1,15 @@
+import { useState } from "react";
 import "./Inventory.css";
 import Toolbar from "./Toolbar";
 import InventoryView from "./InventoryView";
 
 function Inventory() {
+  const [viewMode, setViewMode] = useState("row");
+
   return (
     <div className="inventory">
-      <Toolbar />
-      <InventoryView />
+      <Toolbar viewMode={viewMode} setViewMode={setViewMode} />
+      <InventoryView viewMode={viewMode} />
     </div>
   );
 }

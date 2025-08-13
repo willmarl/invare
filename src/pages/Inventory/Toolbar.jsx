@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Funnel, Plus, Rows3, Grid3X3 } from "lucide-react";
 import "./Toolbar.css";
 
@@ -14,7 +15,8 @@ const categories = [
   "Capacitor",
 ];
 
-function Toolbar() {
+console.lo;
+function Toolbar({ viewMode, setViewMode }) {
   return (
     <div className="toolbar">
       {/* Top row */}
@@ -42,10 +44,22 @@ function Toolbar() {
         </button>
 
         <div className="toolbar__view" aria-label="View toggles">
-          <button className="btn btn--icon" aria-label="Grid view">
+          <button
+            onClick={() => setViewMode("grid")}
+            className={
+              "btn btn--icon" + (viewMode === "grid" ? " btn_active" : "")
+            }
+            aria-label="Grid view"
+          >
             <Grid3X3 className="icon" />
           </button>
-          <button className="btn btn--icon" aria-label="List view">
+          <button
+            onClick={() => setViewMode("row")}
+            className={
+              "btn btn--icon" + (viewMode === "row" ? " btn_active" : "")
+            }
+            aria-label="List view"
+          >
             <Rows3 className="icon" />
           </button>
         </div>

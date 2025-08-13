@@ -33,8 +33,9 @@
   align-items: center;
   justify-content: center;
 }
-.btn:active {
-  transform: translateY(1px);
+.btn_active {
+  transform: translateY(2px);
+  background-color: #f0f0f0;
 }
 
 .btn--pill {
