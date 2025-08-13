@@ -1,0 +1,264 @@
+/* --- Base / desktop --- */
+
+.toolbar {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 24px;
+  background: #fff;
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.toolbar__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  flex-wrap: nowrap;
+}
+
+.btn {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #fff;
+  cursor: pointer;
+  font: 500 16px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  transition: transform 0.06s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--pill {
+  border-radius: 14px;
+  padding: 10px 18px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  gap: 10px;
+}
+
+.btn--icon {
+  height: 44px;
+  width: 44px;
+  border-radius: 10px;
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  stroke-width: 2.5;
+}
+.icon--sm {
+  width: 18px;
+  height: 18px;
+}
+
+.toolbar__assistant {
+  min-width: 112px;
+}
+.toolbar__add .btn__label {
+  margin-left: 6px;
+}
+
+.input {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 16px;
+  outline: none;
+}
+.input:focus {
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.input--search {
+  flex: 1 1 auto;
+  min-width: 260px;
+}
+
+.toolbar__view {
+  display: inline-flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+/* Chips: wrap on desktop; enable scroll on mobile via media queries */
+.toolbar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.chip {
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.chip:active {
+  transform: translateY(1px);
+}
+
+.toolbar__stats {
+  display: flex;
+  gap: 28px;
+  padding-top: 4px;
+  font-size: 16px;
+  color: #222;
+}
+
+/* --- ≤ 768px (tablets & small laptops) --- */
+
+@media (max-width: 768px) {
+  .toolbar {
+    border-radius: 18px;
+    padding: 16px 16px;
+    gap: 14px;
+  }
+
+  .toolbar__top {
+    flex-wrap: wrap; /* stack rows */
+    gap: 10px 12px;
+  }
+
+  .toolbar__assistant {
+    order: 1;
+    padding: 9px 14px;
+    min-width: auto;
+  }
+
+  .input--search {
+    order: 2;
+    flex-basis: 100%; /* full-width search */
+    min-width: 0;
+  }
+
+  .btn--icon {
+    order: 3;
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+  }
+
+  .toolbar__add {
+    order: 4;
+    padding: 9px 14px;
+  }
+
+  .toolbar__view {
+    order: 5;
+    margin-left: 0; /* stop pushing to far right when wrapping */
+    gap: 8px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.25;
+  }
+  .icon--sm {
+    width: 16px;
+    height: 16px;
+  }
+
+  .toolbar__chips {
+    gap: 10px;
+    row-gap: 10px;
+    overflow-x: auto; /* allow sideways scroll if needed */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 4px;
+  }
+
+  .chip {
+    padding: 9px 12px;
+    font-size: 15px;
+  }
+
+  .toolbar__stats {
+    gap: 16px;
+    font-size: 15px;
+    flex-wrap: wrap; /* allow two-line stats */
+  }
+}
+
+/* --- ≤ 400px (phones) --- */
+
+@media (max-width: 400px) {
+  .toolbar {
+    padding: 12px 12px;
+    gap: 12px;
+    border-radius: 14px;
+  }
+
+  .toolbar__top {
+    gap: 8px;
+  }
+
+  /* Make primary actions compact */
+  .btn--pill {
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  .btn--icon {
+    height: 36px;
+    width: 36px;
+    border-radius: 9px;
+  }
+  .icon {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.1;
+  }
+  .icon--sm {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Hide "Add" label to save space; keep icon with aria-label */
+  .toolbar__add .btn__label {
+    display: none;
+  }
+
+  .input {
+    padding: 10px 12px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  /* Chips become a single horizontal scroller with snap */
+  .toolbar__chips {
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 2px 6px;
+    scroll-snap-type: x proximity;
+  }
+  .chip {
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 10px;
+    scroll-snap-align: start;
+  }
+
+  /* Stats stack vertically */
+  .toolbar__stats {
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+  }
+}

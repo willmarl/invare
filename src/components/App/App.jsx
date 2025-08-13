@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "../Header/Header";
-import Main from "../Main";
+import Inventory from "../../pages/Inventory/Index";
 import "./App.css";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <Header />
         <div className="page__container">
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Inventory />} />
           </Routes>
         </div>
       </div>
