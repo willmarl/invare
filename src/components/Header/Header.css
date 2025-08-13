@@ -200,15 +200,6 @@
 }
 
 /* ====== Responsive ====== */
-@media (max-width: 1024px) {
-  .header {
-    padding: 14px 16px;
-  }
-  .header__nav-list {
-    gap: 28px;
-  }
-}
-
 @media (max-width: 768px) {
   /* tighten header */
   .header {
