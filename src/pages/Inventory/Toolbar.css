@@ -241,7 +241,7 @@
   /* Chips become a single horizontal scroller with snap */
   .toolbar__chips {
     gap: 8px;
-    flex-wrap: nowrap;
+    /* flex-wrap: nowrap; */
     overflow-x: auto;
     padding: 2px 2px 6px;
     scroll-snap-type: x proximity;

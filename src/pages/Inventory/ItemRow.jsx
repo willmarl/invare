@@ -1,18 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Wallpaper,
-  Plus,
-  Minus,
-  Pencil,
-  Trash,
-  CodeXml,
-  Pen,
-} from "lucide-react";
+import { Wallpaper, Plus, Minus, Pencil, Trash2, CodeXml } from "lucide-react";
 import "./ItemRow.css";
 
 function ItemRow() {
-  // Placeholder image handling
   const [stepValue, setStepValue] = useState(1);
   const handleStepChange = (e) => {
     const value = parseInt(e.target.value);
@@ -22,7 +13,6 @@ function ItemRow() {
   };
 
   const [imageError, setImageError] = useState(false);
-
   const handleImageError = () => {
     setImageError(true);
   };
@@ -65,14 +55,14 @@ function ItemRow() {
           </div>
           <div className="item-row__edit-section">
             <Pencil className="item-row__edit-button" />
-            <Trash className="item-row__edit-button" />
+            <Trash2 className="item-row__edit-button" />
           </div>
         </div>
       </div>
       <div className="item-row__right">
         <div className="item-row__header">
           <div className="item-row__amount">
-            Amt. <br></br> 10
+            Amt. <br></br> 9999
           </div>
           <div className="item-row__title">
             <p className="item-row__name">Color detector</p>

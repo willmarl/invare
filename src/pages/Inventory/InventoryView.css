@@ -4,4 +4,8 @@
   border-radius: 0 0 16px 16px;
   background: #fff;
   padding: 20px 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }

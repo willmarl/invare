@@ -1,0 +1,73 @@
+.item-card {
+  max-width: none; /* Remove max-width restriction */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px #0000001f;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.item-card__title {
+  padding: 0 4px;
+  margin: 0;
+  border-bottom: solid 1px #0000001f;
+  overflow: hidden;
+  word-wrap: break-word;
+  line-height: 1.4;
+  max-height: 170px;
+  font-size: 20px;
+  max-height: 55px;
+}
+.item-card__image {
+  height: 150px;
+  width: 150px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+.item-card__details {
+  border-top: solid 1px #0000001f;
+  display: flex;
+}
+.item-card__increment {
+  border-right: solid 1px #0000001f;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.item-card__amount {
+  padding: 6px 0 2px;
+  font-size: 18px;
+  flex: 1;
+  text-align: center;
+  border-bottom: solid 1px #0000001f;
+}
+.item-card__increment-buttons {
+  display: flex;
+}
+.item-card__increment-button {
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  padding: 5px;
+}
+.item-card__increment-button:hover {
+  background-color: #f0f0f0;
+}
+.item-card__actions {
+  display: flex;
+  flex-direction: column;
+}
+.item-card__action-button {
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  width: 30px;
+  padding: 2px;
+}
+.item-card__action-button:first-child {
+  border-bottom: solid 1px #0000001f;
+}
+.item-card__action-button:hover {
+  background-color: #f0f0f0;
+}
