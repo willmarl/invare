@@ -1,8 +1,8 @@
-import Logo from "../../public/invare-icon.svg";
+import Logo from "../../../public/invare-icon.svg";
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
-import "../styles/Header.css";
+import "./Header.css";
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
