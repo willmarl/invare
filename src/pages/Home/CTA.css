@@ -1,0 +1,66 @@
+.cta {
+  background: #2563eb;
+  border-radius: 1rem;
+  padding: 2.2rem 1.5rem;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.07);
+}
+
+.cta__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta__desc {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cta__button {
+  display: inline-block;
+  background: #fff;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.8rem 2.5rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cta__button:hover {
+  background: #e0e7ff;
+  color: #1e40af;
+}
+
+@media (max-width: 768px) {
+  .cta {
+    padding: 1.2rem 0.7rem;
+  }
+  .cta__title {
+    font-size: 1.1rem;
+  }
+  .cta__button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .cta {
+    padding: 0.7rem 0.2rem;
+  }
+  .cta__title {
+    font-size: 0.95rem;
+  }
+  .cta__desc {
+    font-size: 0.95rem;
+  }
+  .cta__button {
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+  }
+}

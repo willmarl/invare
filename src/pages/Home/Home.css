@@ -1,3 +1,27 @@
 .home {
-  border: solid 1px red;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.home__section {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .home {
+    padding: 1rem 0.5rem;
+    gap: 2rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .home {
+    padding: 0.5rem 0.1rem;
+    gap: 1rem;
+  }
 }

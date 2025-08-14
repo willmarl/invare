@@ -1,0 +1,79 @@
+.custom {
+  background: #f6f8fa;
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.custom__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1a202c;
+  text-align: center;
+}
+
+.custom__desc {
+  color: #444;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.custom__cards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.custom__card {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1.2rem 1rem;
+  min-width: 200px;
+  flex: 1 1 180px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+  text-align: center;
+}
+
+.custom__card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2563eb;
+}
+
+.custom__card-desc {
+  color: #444;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .custom__cards {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .custom__card {
+    min-width: 0;
+    padding: 1rem 0.7rem;
+  }
+  .custom__title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .custom {
+    padding: 1rem 0.3rem;
+  }
+  .custom__card {
+    padding: 0.7rem 0.2rem;
+  }
+  .custom__title {
+    font-size: 0.95rem;
+  }
+  .custom__desc {
+    font-size: 0.95rem;
+  }
+}

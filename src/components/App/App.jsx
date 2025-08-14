@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "../Header/Header";
 import Inventory from "../../pages/Inventory/Index";
-import Home from "../../pages/Home/Home";
+import Home from "../../pages/Home/index";
 import Profile from "../../pages/Profile/Profile";
 import Login from "../../pages/Login/Login";
 import Regsiter from "../../pages/Register/Register";
