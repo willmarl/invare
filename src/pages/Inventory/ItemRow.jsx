@@ -73,8 +73,12 @@ function ItemRow() {
           <div className="item-row__details">
             <div className="item-row__category">
               <div className="item-row__category-title">cat. /tags</div>
-              <div className="item-row_-category-tags">
+              <div className="item-row__category-tags">
                 <div className="item-row__category-tag">Sensor</div>
+                <div className="item-row__category-tag">Input</div>
+                <div className="item-row__category-tag">Input</div>
+                <div className="item-row__category-tag">Input</div>
+                <div className="item-row__category-tag">Input</div>
                 <div className="item-row__category-tag">Input</div>
               </div>
             </div>
