@@ -44,6 +44,18 @@ function InventoryView({ viewMode, data, filter, selectedCategories = [] }) {
     );
   }
 
+  if (filteredData.length === 0) {
+    return (
+      <div className="inventory-view__empty">
+        <p>
+          {data.length === 0
+            ? "Your inventory is empty. Add some modules to get started!"
+            : "No results found. Try adjusting your search or filters."}
+        </p>
+      </div>
+    );
+  }
+
   if (viewMode === "grid") {
     return (
       <div className="inventory-view inventory-view_grid">
