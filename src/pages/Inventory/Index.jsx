@@ -111,6 +111,19 @@ console.log(prepedData);
 function Inventory() {
   const [viewMode, setViewMode] = useState("row");
   const [filter, setFilter] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleCategoryToggle = (category) => {
+    if (category === "all") {
+      setSelectedCategories([]);
+    } else {
+      setSelectedCategories((prev) =>
+        prev.includes(category)
+          ? prev.filter((c) => c !== category)
+          : [...prev, category]
+      );
+    }
+  };
 
   return (
     <div className="inventory">
@@ -120,9 +133,16 @@ function Inventory() {
         filter={filter}
         setFilter={setFilter}
         allCategories={allCategories}
+        selectedCategories={selectedCategories}
+        onCategoryToggle={handleCategoryToggle}
       />
 
-      <InventoryView viewMode={viewMode} data={prepedData} filter={filter} />
+      <InventoryView
+        viewMode={viewMode}
+        data={prepedData}
+        filter={filter}
+        selectedCategories={selectedCategories}
+      />
     </div>
   );
 }

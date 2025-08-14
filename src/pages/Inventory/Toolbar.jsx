@@ -3,7 +3,15 @@ import { Funnel, Plus, Rows3, Grid3X3 } from "lucide-react";
 import "./Toolbar.css";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 
-function Toolbar({ viewMode, setViewMode, filter, setFilter, allCategories }) {
+function Toolbar({
+  viewMode,
+  setViewMode,
+  filter,
+  setFilter,
+  allCategories,
+  selectedCategories = [],
+  onCategoryToggle = () => {},
+}) {
   return (
     <div className="toolbar">
       {/* Top row */}
@@ -56,14 +64,22 @@ function Toolbar({ viewMode, setViewMode, filter, setFilter, allCategories }) {
 
       {/* Category chips */}
       <div className="toolbar__chips" aria-label="Categories">
-        {["all", ...allCategories].map((c, idx) => (
-          <button
-            key={c}
-            className={`chip${c === "all" ? " chip--active" : ""}`}
-          >
-            {c === "all" ? "All" : capitalizeFirstLetter(c)}
-          </button>
-        ))}
+        {["all", ...allCategories].map((c) => {
+          const isActive =
+            c === "all"
+              ? selectedCategories.length === 0
+              : selectedCategories.includes(c);
+          return (
+            <button
+              key={c}
+              className={`chip${isActive ? " chip--active" : ""}`}
+              onClick={() => onCategoryToggle(c)}
+              type="button"
+            >
+              {c === "all" ? "All" : capitalizeFirstLetter(c)}
+            </button>
+          );
+        })}
       </div>
 
       {/* Stats footer */}

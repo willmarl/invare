@@ -26,15 +26,23 @@ import "./InventoryView.css";
 // ]
 
 // This can be optimized with memoization
-function InventoryView({ viewMode, data, filter }) {
-  const filteredData = filter
-    ? data.filter(
-        (item) =>
-          (item.name?.toLowerCase() || "").includes(filter.toLowerCase()) ||
-          (item.model?.toLowerCase() || "").includes(filter.toLowerCase()) ||
-          (item.description?.toLowerCase() || "").includes(filter.toLowerCase())
-      )
-    : data;
+function InventoryView({ viewMode, data, filter, selectedCategories = [] }) {
+  let filteredData = data;
+
+  if (filter) {
+    filteredData = filteredData.filter(
+      (item) =>
+        (item.name?.toLowerCase() || "").includes(filter.toLowerCase()) ||
+        (item.model?.toLowerCase() || "").includes(filter.toLowerCase()) ||
+        (item.description?.toLowerCase() || "").includes(filter.toLowerCase())
+    );
+  }
+
+  if (selectedCategories.length > 0) {
+    filteredData = filteredData.filter((item) =>
+      selectedCategories.every((cat) => item.category?.includes(cat))
+    );
+  }
 
   if (viewMode === "grid") {
     return (
