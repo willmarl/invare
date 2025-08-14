@@ -112,6 +112,8 @@ function Inventory() {
   const [viewMode, setViewMode] = useState("row");
   const [filter, setFilter] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [sortField, setSortField] = useState("name");
+  const [sortDirection, setSortDirection] = useState("asc");
 
   const handleCategoryToggle = (category) => {
     if (category === "all") {
@@ -135,6 +137,10 @@ function Inventory() {
         allCategories={allCategories}
         selectedCategories={selectedCategories}
         onCategoryToggle={handleCategoryToggle}
+        sortField={sortField}
+        setSortField={setSortField}
+        sortDirection={sortDirection}
+        setSortDirection={setSortDirection}
       />
 
       <InventoryView
@@ -142,6 +148,8 @@ function Inventory() {
         data={prepedData}
         filter={filter}
         selectedCategories={selectedCategories}
+        sortField={sortField}
+        sortDirection={sortDirection}
       />
     </div>
   );

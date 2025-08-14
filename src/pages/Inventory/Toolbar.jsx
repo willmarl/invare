@@ -11,7 +11,23 @@ function Toolbar({
   allCategories,
   selectedCategories = [],
   onCategoryToggle = () => {},
+  sortField,
+  setSortField,
+  sortDirection,
+  setSortDirection,
 }) {
+  const [showSortMenu, setShowSortMenu] = useState(false);
+
+  const handleSortChange = (field) => {
+    setSortField(field);
+    setShowSortMenu(false);
+  };
+
+  const handleDirectionChange = (dir) => {
+    setSortDirection(dir);
+    setShowSortMenu(false);
+  };
+
   return (
     <div className="toolbar">
       {/* Top row */}
@@ -31,8 +47,74 @@ function Toolbar({
           onChange={(e) => setFilter(e.target.value)}
         />
 
-        <button className="btn btn--icon" aria-label="Filter">
+        <button
+          className="btn btn--icon"
+          aria-label="Filter"
+          onClick={() => setShowSortMenu((v) => !v)}
+          style={{ position: "relative" }}
+        >
           <Funnel className="icon" />
+          {showSortMenu && (
+            <div className="toolbar__sort-menu">
+              <div>
+                <span>Sort by:</span>
+                <button
+                  className={`toolbar__sort-option${
+                    sortField === "name" ? " toolbar__sort-option--active" : ""
+                  }`}
+                  onClick={() => handleSortChange("name")}
+                  type="button"
+                >
+                  Name
+                </button>
+                <button
+                  className={`toolbar__sort-option${
+                    sortField === "quantity"
+                      ? " toolbar__sort-option--active"
+                      : ""
+                  }`}
+                  onClick={() => handleSortChange("quantity")}
+                  type="button"
+                >
+                  Quantity
+                </button>
+                <button
+                  className={`toolbar__sort-option${
+                    sortField === "model" ? " toolbar__sort-option--active" : ""
+                  }`}
+                  onClick={() => handleSortChange("model")}
+                  type="button"
+                >
+                  Model
+                </button>
+              </div>
+              <div>
+                <span>Direction:</span>
+                <button
+                  className={`toolbar__sort-option${
+                    sortDirection === "asc"
+                      ? " toolbar__sort-option--active"
+                      : ""
+                  }`}
+                  onClick={() => handleDirectionChange("asc")}
+                  type="button"
+                >
+                  Asc
+                </button>
+                <button
+                  className={`toolbar__sort-option${
+                    sortDirection === "desc"
+                      ? " toolbar__sort-option--active"
+                      : ""
+                  }`}
+                  onClick={() => handleDirectionChange("desc")}
+                  type="button"
+                >
+                  Desc
+                </button>
+              </div>
+            </div>
+          )}
         </button>
 
         <button className="btn btn--pill toolbar__add" aria-label="Add item">

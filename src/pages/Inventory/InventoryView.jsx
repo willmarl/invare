@@ -26,7 +26,14 @@ import "./InventoryView.css";
 // ]
 
 // This can be optimized with memoization
-function InventoryView({ viewMode, data, filter, selectedCategories = [] }) {
+function InventoryView({
+  viewMode,
+  data,
+  filter,
+  selectedCategories = [],
+  sortField = "name",
+  sortDirection = "asc",
+}) {
   let filteredData = data;
 
   if (filter) {
@@ -43,6 +50,22 @@ function InventoryView({ viewMode, data, filter, selectedCategories = [] }) {
       selectedCategories.every((cat) => item.category?.includes(cat))
     );
   }
+
+  // Sort logic
+  filteredData = [...filteredData].sort((a, b) => {
+    let aValue = a[sortField];
+    let bValue = b[sortField];
+    if (sortField === "quantity") {
+      aValue = Number(aValue) || 0;
+      bValue = Number(bValue) || 0;
+    } else {
+      aValue = (aValue || "").toString().toLowerCase();
+      bValue = (bValue || "").toString().toLowerCase();
+    }
+    if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+    if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
+    return 0;
+  });
 
   if (filteredData.length === 0) {
     return (
