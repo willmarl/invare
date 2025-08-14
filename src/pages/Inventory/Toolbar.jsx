@@ -19,6 +19,8 @@ function Toolbar({ viewMode, setViewMode, filter, setFilter, allCategories }) {
           type="text"
           className="input input--search"
           aria-label="Search"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
         />
 
         <button className="btn btn--icon" aria-label="Filter">

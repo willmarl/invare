@@ -26,11 +26,20 @@ import "./InventoryView.css";
 // ]
 
 // This can be optimized with memoization
-function InventoryView({ viewMode, data }) {
+function InventoryView({ viewMode, data, filter }) {
+  const filteredData = filter
+    ? data.filter(
+        (item) =>
+          (item.name?.toLowerCase() || "").includes(filter.toLowerCase()) ||
+          (item.model?.toLowerCase() || "").includes(filter.toLowerCase()) ||
+          (item.description?.toLowerCase() || "").includes(filter.toLowerCase())
+      )
+    : data;
+
   if (viewMode === "grid") {
     return (
       <div className="inventory-view inventory-view_grid">
-        {data.map((item) => (
+        {filteredData.map((item) => (
           <ItemCard key={item._id} item={item} />
         ))}
       </div>
@@ -38,7 +47,7 @@ function InventoryView({ viewMode, data }) {
   }
   return (
     <div className="inventory-view">
-      {data.map((item) => (
+      {filteredData.map((item) => (
         <ItemRow key={item._id} item={item} />
       ))}
     </div>

@@ -12,6 +12,13 @@ const invMockData = [
     quantity: 9,
     __v: 0,
   },
+  {
+    _id: "6897abaac39da249b3985544",
+    userId: "68973717f23adacd60fcc7c4",
+    moduleId: "68976c6acbf13bc2ed80d736",
+    quantity: 12,
+    __v: 0,
+  },
 ];
 
 // list of module ids in active inventory
@@ -115,7 +122,7 @@ function Inventory() {
         allCategories={allCategories}
       />
 
-      <InventoryView viewMode={viewMode} data={prepedData} />
+      <InventoryView viewMode={viewMode} data={prepedData} filter={filter} />
     </div>
   );
 }
