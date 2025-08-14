@@ -1,22 +1,9 @@
 import { useState } from "react";
 import { Funnel, Plus, Rows3, Grid3X3 } from "lucide-react";
 import "./Toolbar.css";
+import { capitalizeFirstLetter } from "../../utils/helpers";
 
-const categories = [
-  "All",
-  "Input",
-  "Output",
-  "Sensor",
-  "Power",
-  "Driver",
-  "Display",
-  "Boards",
-  "Wireless",
-  "Capacitor",
-];
-
-console.lo;
-function Toolbar({ viewMode, setViewMode }) {
+function Toolbar({ viewMode, setViewMode, filter, setFilter, allCategories }) {
   return (
     <div className="toolbar">
       {/* Top row */}
@@ -67,19 +54,23 @@ function Toolbar({ viewMode, setViewMode }) {
 
       {/* Category chips */}
       <div className="toolbar__chips" aria-label="Categories">
-        {categories.map((c) => (
-          <button key={c} className="chip">
-            {c}
+        {["all", ...allCategories].map((c, idx) => (
+          <button
+            key={c}
+            className={`chip${c === "all" ? " chip--active" : ""}`}
+          >
+            {c === "all" ? "All" : capitalizeFirstLetter(c)}
           </button>
         ))}
       </div>
 
       {/* Stats footer */}
-      <div className="toolbar__stats" aria-live="polite">
+      {/* Todo later */}
+      {/* <div className="toolbar__stats" aria-live="polite">
         <span>Total Components: 7</span>
         <span>Categories: 9</span>
         <span>Low Stock: 3</span>
-      </div>
+      </div> */}
     </div>
   );
 }

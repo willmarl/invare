@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Wallpaper, Plus, Minus, Pencil, Trash2, CodeXml } from "lucide-react";
 import "./ItemRow.css";
+import { capitalizeFirstLetter } from "../../utils/helpers";
 
-function ItemRow() {
+function ItemRow({ item }) {
   const [stepValue, setStepValue] = useState(1);
   const handleStepChange = (e) => {
     const value = parseInt(e.target.value);
@@ -28,7 +29,7 @@ function ItemRow() {
           />
         ) : (
           <img
-            src="your-image-url"
+            src={item.image?.url}
             alt="placeholder if no image"
             onError={handleImageError}
             className="item-row__image"
@@ -62,11 +63,11 @@ function ItemRow() {
       <div className="item-row__right">
         <div className="item-row__header">
           <div className="item-row__amount">
-            Amt. <br></br> 9999
+            Amt. <br></br> {item.quantity}
           </div>
           <div className="item-row__title">
-            <p className="item-row__name">Color detector</p>
-            <p className="item-row__name">TCS3200</p>
+            <p className="item-row__name">{item.name}</p>
+            <p className="item-row__name">{item?.model}</p>
           </div>
         </div>
         <div className="item-row__right-bot">
@@ -74,12 +75,11 @@ function ItemRow() {
             <div className="item-row__category">
               <div className="item-row__category-title">cat. /tags</div>
               <div className="item-row__category-tags">
-                <div className="item-row__category-tag">Sensor</div>
-                <div className="item-row__category-tag">Input</div>
-                <div className="item-row__category-tag">Input</div>
-                <div className="item-row__category-tag">Input</div>
-                <div className="item-row__category-tag">Input</div>
-                <div className="item-row__category-tag">Input</div>
+                {item.category?.map((cat) => (
+                  <span key={cat} className="item-row__category-tag">
+                    {capitalizeFirstLetter(cat)}
+                  </span>
+                ))}
               </div>
             </div>
             <div className="item-row__links">
@@ -91,11 +91,7 @@ function ItemRow() {
             </div>
           </div>
           <div className="item-row__description">
-            Description Here. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Totam laborum dolorum dolorem minus placeat,
-            delectus, vero mollitia repudiandae a, blanditiis incidunt
-            similique. Iste autem, doloribus magni ducimus dolores veritatis
-            dolore?
+            {item.description || "No description"}
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Wallpaper, Plus, Minus, Pencil, Trash2, CodeXml } from "lucide-react";
 import "./ItemCard.css";
 
-function ItemCard() {
+function ItemCard({ item }) {
   const [imageError, setImageError] = useState(false);
   const handleImageError = () => {
     setImageError(true);
@@ -11,7 +11,7 @@ function ItemCard() {
 
   return (
     <div className="item-card">
-      <h2 className="item-card__title">Card title</h2>
+      <h2 className="item-card__title">{item.name}</h2>
       {imageError ? (
         <Wallpaper
           strokeWidth={0.2}
@@ -28,7 +28,7 @@ function ItemCard() {
       )}
       <div className="item-card__details">
         <div className="item-card__increment">
-          <div className="item-card__amount">Amt: 9999</div>
+          <div className="item-card__amount">Amt: {item.quantity}</div>
           <div className="item-card__increment-buttons">
             <Plus className="item-card__increment-button" />
             <Minus className="item-card__increment-button" />
