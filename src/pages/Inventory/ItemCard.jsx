@@ -20,7 +20,7 @@ function ItemCard({ item }) {
         />
       ) : (
         <img
-          src="your-image-url"
+          src={item.image?.url}
           alt="placeholder if no image"
           onError={handleImageError}
           className="item-card__image"

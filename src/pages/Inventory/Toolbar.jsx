@@ -35,6 +35,7 @@ function Toolbar({
         className="toolbar__top"
         role="toolbar"
         aria-label="Inventory toolbar"
+        style={{ position: "relative" }}
       >
         <button className="btn btn--pill toolbar__assistant">Assistant</button>
 
@@ -47,13 +48,15 @@ function Toolbar({
           onChange={(e) => setFilter(e.target.value)}
         />
 
-        <button
-          className="btn btn--icon"
-          aria-label="Filter"
-          onClick={() => setShowSortMenu((v) => !v)}
-          style={{ position: "relative" }}
-        >
-          <Funnel className="icon" />
+        {/* Filter button and sort menu wrapper */}
+        <span style={{ position: "relative", display: "inline-block" }}>
+          <button
+            className="btn btn--icon"
+            aria-label="Filter"
+            onClick={() => setShowSortMenu((v) => !v)}
+          >
+            <Funnel className="icon" />
+          </button>
           {showSortMenu && (
             <div className="toolbar__sort-menu">
               <div>
@@ -115,7 +118,7 @@ function Toolbar({
               </div>
             </div>
           )}
-        </button>
+        </span>
 
         <button className="btn btn--pill toolbar__add" aria-label="Add item">
           <Plus className="icon icon--sm" />
