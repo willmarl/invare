@@ -49,7 +49,7 @@ function Header() {
           <ul className="header__nav-list" onClick={closeMobileNav}>
             <li>
               <NavLink className={customClassName} to="/">
-                Home
+                About
               </NavLink>
             </li>
             <li>
