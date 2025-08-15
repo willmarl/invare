@@ -1,3 +1,55 @@
+/* Auth buttons (login/signup) */
+.header__auth {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header__auth-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #2563eb;
+  background: #fff;
+  color: #2563eb;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.header__auth-btn:hover,
+.header__auth-btn:focus {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 2px 8px #2563eb22;
+}
+
+.header__auth-btn_login {
+  border-color: #2563eb;
+  background: #fff;
+  color: #2563eb;
+}
+
+.header__auth-btn_login:hover,
+.header__auth-btn_login:focus {
+  background: #2563eb;
+  color: #fff;
+}
+
+.header__auth-btn_signup {
+  border-color: #22c55e;
+  background: #22c55e;
+  color: #fff;
+}
+
+.header__auth-btn_signup:hover,
+.header__auth-btn_signup:focus {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #fff;
+}
 /* Base layout */
 /* Full-bleed background strip */
 .header {

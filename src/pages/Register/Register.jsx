@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useState } from "react";
+import { useAuthMutation } from "../../hooks/useAuthMutation";
 
 const schema = yup.object({
   username: yup.string().min(1).max(30).required("Username is required"),
@@ -11,7 +13,16 @@ const schema = yup.object({
 });
 
 function Register() {
+  const [backendError, setBackendError] = useState(null);
   const navigate = useNavigate();
+  const { mutate: registerUser, isLoading } = useAuthMutation("register", {
+    onError: (msg) => setBackendError(msg),
+    onSuccess: () => {
+      setBackendError(null);
+      navigate("/");
+    },
+  });
+
   const {
     register,
     handleSubmit,
@@ -21,14 +32,17 @@ function Register() {
     mode: "onChange", // live validation
   });
 
-  function onSubmit(data) {
-    // handle register logic here
-  }
-
+  const onSubmit = (data) => {
+    console.log(data);
+    registerUser(data);
+  };
   return (
     <div className="register">
       <form className="register__form" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="register__title">Register</h2>
+        {backendError && (
+          <span className="register__backend-error">{backendError}</span>
+        )}
         <label className="register__label">
           Username
           <input
