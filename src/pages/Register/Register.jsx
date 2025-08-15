@@ -9,7 +9,6 @@ import { useAuthMutation } from "../../hooks/useAuthMutation";
 const schema = yup.object({
   username: yup.string().min(1).max(30).required("Username is required"),
   password: yup.string().min(1).max(256).required("Password is required"),
-  email: yup.string().email("Invalid email").notRequired(),
 });
 
 function Register() {
@@ -65,17 +64,7 @@ function Register() {
             <span className="register__error">{errors.password.message}</span>
           )}
         </label>
-        <label className="register__label">
-          Email (optional)
-          <input
-            className="register__input"
-            type="email"
-            {...register("email")}
-          />
-          {errors.email && (
-            <span className="register__error">{errors.email.message}</span>
-          )}
-        </label>
+        {/* Email field removed */}
         <button className="register__button" type="submit">
           Register
         </button>
