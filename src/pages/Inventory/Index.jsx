@@ -1,6 +1,8 @@
+import { useAuthStore } from "../../stores/useAuthStore";
 import { useState } from "react";
 import "./Inventory.css";
 import Toolbar from "./Toolbar";
+import Guest from "./Guest";
 import InventoryView from "./InventoryView";
 import { data } from "react-router-dom";
 // get inv by user ID
@@ -109,6 +111,7 @@ console.log(prepedData);
 //   }
 // ]
 function Inventory() {
+  const { isAuthenticated: isLoggedIn } = useAuthStore();
   const [viewMode, setViewMode] = useState("row");
   const [filter, setFilter] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -126,6 +129,14 @@ function Inventory() {
       );
     }
   };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="inventory">
+        <Guest />
+      </div>
+    );
+  }
 
   return (
     <div className="inventory">

@@ -1,0 +1,42 @@
+.guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background: #f9f9fb;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  padding: 32px 16px;
+}
+
+.guest__icon {
+  margin-bottom: 16px;
+  color: #6366f1;
+}
+
+.guest__message {
+  text-align: center;
+}
+
+.guest__title {
+  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+  color: #22223b;
+}
+
+.guest__text {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #4a4e69;
+}
+
+.guest__action {
+  color: #6366f1;
+  font-weight: 600;
+  cursor: pointer;
+  transition: text-decoration 0.2s;
+}
+.guest__action:hover {
+  text-decoration: underline;
+}
