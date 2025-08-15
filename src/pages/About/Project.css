@@ -1,0 +1,98 @@
+.about-project {
+  background: #f8fafc;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  margin: 2rem auto 3rem auto;
+  max-width: 900px;
+  box-shadow: 0 2px 8px #0001;
+}
+.about-project__heading {
+  color: #2563eb;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.about-project__philosophy {
+  color: #0f172a;
+  font-size: 1.13rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.7rem;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.about-project__icon {
+  color: #22c55e;
+  margin-right: 0.5em;
+  vertical-align: -2px;
+}
+.about-project__links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.about-project__link {
+  color: #22c55e;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.about-project__link:hover {
+  color: #2563eb;
+}
+.about-project__license {
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+.about-project__roadmap {
+  margin-bottom: 1.5rem;
+}
+.about-project__roadmap-title {
+  color: #2563eb;
+  font-size: 1.15rem;
+  margin-bottom: 0.7rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: center;
+}
+.about-project__roadmap-list {
+  color: #0f172a;
+  font-size: 1.07rem;
+  list-style: none;
+  padding-left: 0;
+  margin: 0 auto 0 0;
+  max-width: 480px;
+}
+.about-project__roadmap-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin-bottom: 0.5em;
+  padding-left: 0.2em;
+}
+.about-project__roadmap-icon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+.about-project__quote {
+  background: #fff;
+  color: #2563eb;
+  border-left: 4px solid #22c55e;
+  padding: 1.1rem 1.7rem;
+  border-radius: 0.7rem;
+  font-style: italic;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "../Header/Header";
 import Inventory from "../../pages/Inventory/Index";
 import Home from "../../pages/Home/index";
+import About from "../../pages/About/index";
 import Profile from "../../pages/Profile/Profile";
 import Login from "../../pages/Login/Login";
 import Regsiter from "../../pages/Register/Register";
@@ -28,7 +29,7 @@ function App() {
         <Header />
         <div className="page__container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<About />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route
               path="/profile"
