@@ -7,7 +7,15 @@ import { useState } from "react";
 import { useAuthMutation } from "../../hooks/useAuthMutation";
 
 const schema = yup.object({
-  username: yup.string().min(1).max(30).required("Username is required"),
+  username: yup
+    .string()
+    .min(1)
+    .max(30)
+    .matches(
+      /^[a-z0-9_]+$/i,
+      "Username must contain only letters, numbers, and underscores."
+    )
+    .required("Username is required"),
   password: yup.string().min(1).max(256).required("Password is required"),
 });
 
