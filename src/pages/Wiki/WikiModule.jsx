@@ -1,9 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useWikiByUsernameSlug } from "../../hooks/useModules";
 import "./WikiModule.css";
 
 function WikiModule() {
   const { username, slug } = useParams();
+  const navigate = useNavigate();
   const {
     data: module,
     isLoading,
@@ -11,14 +13,19 @@ function WikiModule() {
     error,
   } = useWikiByUsernameSlug(username, slug);
 
+  useEffect(() => {
+    if (
+      isError &&
+      error &&
+      (error.status === 404 || error.response?.status === 404)
+    ) {
+      navigate("/notfound", { replace: true });
+    }
+  }, [isError, error, navigate]);
+
   if (isLoading)
     return <div className="wiki-module wiki-module--loading">Loading...</div>;
-  if (isError)
-    return (
-      <div className="wiki-module wiki-module--error">
-        {error?.message || "Module not found"}
-      </div>
-    );
+  if (isError) return null;
   if (!module) return null;
 
   return (
