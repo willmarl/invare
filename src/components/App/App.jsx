@@ -3,6 +3,8 @@ import Header from "../Header/Header";
 import Inventory from "../../pages/Inventory/Index";
 import Home from "../../pages/Home/index";
 import About from "../../pages/About/index";
+import Wiki from "../../pages/Wiki/Wiki";
+import WikiModule from "../../pages/Wiki/WikiModule";
 import Profile from "../../pages/Profile/Profile";
 import Login from "../../pages/Login/Login";
 import Regsiter from "../../pages/Register/Register";
@@ -35,6 +37,8 @@ function App() {
         <div className="page__container">
           <Routes>
             <Route path="/" element={<About />} />
+            <Route path="/wiki" element={<Wiki />} />
+            <Route path="/wiki/:username/:slug" element={<WikiModule />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route
               path="/profile"
