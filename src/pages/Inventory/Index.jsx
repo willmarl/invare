@@ -5,10 +5,11 @@ import Toolbar from "./Toolbar";
 import Guest from "./Guest";
 import InventoryView from "./InventoryView";
 import { useInventoriesByUser } from "../../hooks/useInventories";
-import { useModules } from "../../hooks/useModules";
+import { useModulesByOwner } from "../../hooks/useModules";
 
 function Inventory() {
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
+  console.log("[Inventory] user:", user);
   const [viewMode, setViewMode] = useState("row");
   const [filter, setFilter] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -16,11 +17,14 @@ function Inventory() {
   const [sortDirection, setSortDirection] = useState("asc");
 
   // Fetch inventories for the logged-in user
-  const userId = user?._id;
+  const userId = user?.id;
+  console.log("[Inventory] userId:", userId);
   const { data: inventories = [], isLoading: invLoading } =
     useInventoriesByUser(userId);
-  // Fetch all modules (could be optimized to fetch only needed modules if API supports)
-  const { data: modules = [], isLoading: modulesLoading } = useModules();
+  const { data: modules = [], isLoading: modulesLoading } =
+    useModulesByOwner(userId);
+  console.log("[Inventory] inventories:", inventories);
+  console.log("[Inventory] modules:", modules);
 
   // Merge inventory and module data
   const prepedData = useMemo(() => {
