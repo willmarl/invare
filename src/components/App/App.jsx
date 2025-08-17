@@ -15,10 +15,13 @@ import { useModalStore } from "../../stores/useModalStore";
 import AddModuleModal from "../../components/Modals/AddModuleModal";
 import AddNewModal from "../../components/Modals/AddNewModal";
 import AddBasicModal from "../../components/Modals/AddBasicModal";
+import ImageInput from "../ImageInput/ImageInput";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
   const activeModal = useModalStore((s) => s.activeModal);
+  const [image, setImage] = useState(null);
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
   console.log("DEBUG", { isLoggedIn, user });
 
@@ -30,6 +33,7 @@ function App() {
   return (
     <div className="page">
       <div className="page__content">
+        <ImageInput onChange={setImage} />
         <Header />
         <div className="page__container">
           <Routes>

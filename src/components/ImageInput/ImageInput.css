@@ -1,0 +1,80 @@
+.image-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.image-input__dropzone {
+  border: 2px dashed #94a3b8;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.image-input__dropzone--active {
+  background-color: #f1f5f9;
+}
+
+.image-input__preview-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-input__preview {
+  width: 150px;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  border: 2px solid #94a3b8;
+  display: block;
+  margin: 0 auto;
+}
+
+.image-input__remove {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #f1f5f9;
+  border: 2px solid #ef4444;
+  border-radius: 50%;
+  color: #ef4444;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  box-shadow: 0 1px 4px #0001;
+  padding: 0;
+}
+
+.image-input__remove svg {
+  display: block;
+  margin: auto;
+  color: #ef4444;
+}
+
+.image-input__remove:hover,
+.image-input__remove:focus-visible {
+  background: #ef4444;
+  color: #fff;
+  border-color: #b91c1c;
+}
+
+.image-input__remove:hover svg,
+.image-input__remove:focus-visible svg {
+  color: #fff;
+}
+
+.image-input__error {
+  color: #dc2626;
+  font-size: 0.9rem;
+}
