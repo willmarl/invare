@@ -79,7 +79,7 @@ function Header() {
                   if (e.key === "Enter" || e.key === " ") toggleDropdown();
                 }}
               >
-                <img src="#" alt="" className="header__user-image" />
+                {/* <img src="#" alt="" className="header__user-image" /> */}
                 <span className="header__username">{user?.username}</span>
                 <button
                   className="header__user-button"
