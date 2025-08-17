@@ -78,5 +78,5 @@ export function getKyClient(version = "v1") {
 }
 
 // (Optional) convenience exports if you mostly use v1 right now:
-// export const apiV1 = getKyClient("v1");
-// export const apiV2 = getKyClient("v2");
+export const apiV1 = getKyClient("v1");
+export const apiV2 = getKyClient("v2");
