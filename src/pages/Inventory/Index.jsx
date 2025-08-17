@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useAuthStore } from "../../stores/useAuthStore";
 import "./Inventory.css";
 import Toolbar from "./Toolbar";
@@ -11,7 +11,15 @@ import { getModuleById } from "../../api/modules";
 function Inventory() {
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
   console.log("[Inventory] user:", user);
-  const [viewMode, setViewMode] = useState("row");
+  // Persist viewMode in localStorage
+  const VIEW_MODE_KEY = "inventoryViewMode";
+  const [viewMode, setViewMode] = useState(() => {
+    return localStorage.getItem(VIEW_MODE_KEY) || "row";
+  });
+  // Save viewMode to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(VIEW_MODE_KEY, viewMode);
+  }, [viewMode]);
   const [filter, setFilter] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [sortField, setSortField] = useState("name");
