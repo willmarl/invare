@@ -17,7 +17,7 @@ export const getInventoriesByUser = async (userId) => {
 
 // Update inventory
 export const updateInventory = async ({ invId, data }) => {
-  return apiV1.patch(`inventories/${invId}`, { json: data }).json();
+  return apiV1.put(`inventories/${invId}`, { json: data }).json();
 };
 
 // Delete inventory

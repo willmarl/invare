@@ -31,7 +31,7 @@ export const getModulesByOwner = async (userId) => {
 
 // Update module
 export const updateModule = async ({ moduleId, data }) => {
-  return apiV1.patch(`modules/${moduleId}`, { json: data }).json();
+  return apiV1.put(`modules/${moduleId}`, { json: data }).json();
 };
 
 // Delete module
@@ -46,7 +46,7 @@ export const getWikiByUsernameSlug = async ({ username, slug }) => {
 
 // Update wiki by username and slug
 export const updateWikiByUsernameSlug = async ({ username, slug, data }) => {
-  return apiV1.patch(`modules/wiki/${username}/${slug}`, { json: data }).json();
+  return apiV1.put(`modules/wiki/${username}/${slug}`, { json: data }).json();
 };
 
 // Delete wiki by username and slug
