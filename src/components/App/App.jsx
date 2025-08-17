@@ -15,6 +15,7 @@ import { useModalStore } from "../../stores/useModalStore";
 import AddModuleModal from "../../components/Modals/AddModuleModal";
 import AddNewModal from "../../components/Modals/AddNewModal";
 import AddBasicModal from "../../components/Modals/AddBasicModal";
+import CodeModal from "../../components/Modals/CodeModal";
 import "./App.css";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
         {activeModal === "AddModuleModal" && <AddModuleModal />}
         {activeModal === "AddNewModal" && <AddNewModal />}
         {activeModal === "AddBasicModal" && <AddBasicModal />}
+        {activeModal === "CodeModal" && <CodeModal />}
       </div>
     </div>
   );

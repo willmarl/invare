@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Wallpaper, Plus, Minus, Pencil, Trash2, CodeXml } from "lucide-react";
 import "./ItemRow.css";
 import { capitalizeFirstLetter } from "../../utils/helpers";
+import { useModalStore } from "../../stores/useModalStore";
 
 function ItemRow({ item }) {
+  const openModal = useModalStore((s) => s.openModal);
   const [stepValue, setStepValue] = useState(1);
   const handleStepChange = (e) => {
     const value = parseInt(e.target.value);
@@ -83,7 +85,11 @@ function ItemRow({ item }) {
               </div>
             </div>
             <div className="item-row__links">
-              <CodeXml strokeWidth={1} className="item-row__link" />
+              <CodeXml
+                strokeWidth={1}
+                className="item-row__link"
+                onClick={() => openModal("CodeModal")}
+              />
               <div className="item-row__divider"></div>
               <Link className="item-row__link" to="/Wiki">
                 Wiki
