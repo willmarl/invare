@@ -1,15 +1,12 @@
-import Modal from "./Modal";
-import { useModalStore } from "../../stores/useModalStore";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState } from "react";
-import { apiV1 } from "../../utils/kyClient";
-// import { useCreateModule } from "../../hooks/useModules";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { Plus, X } from "lucide-react";
-import "./AddNewModal.css";
-import ImageInputRHF from "../ImageInput/ImageInputRHF";
+import { useModalStore } from "../../stores/useModalStore";
+import { useModule, useUpdateModule } from "../../hooks/useModules";
+import Modal from "./Modal";
+import FileUploaderRHF from "../FileUploader/FileUploaderRHF";
+import "./EditModal.css";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -21,11 +18,14 @@ const schema = yup.object().shape({
   codesnippet_python: yup.string(),
 });
 
-function AddNewModal() {
+function EditModal() {
   const isOpen = useModalStore((s) => s.activeModal);
   const onClose = useModalStore((s) => s.closeModal);
-  const openModal = useModalStore((s) => s.openModal);
-  const [showPreview, setShowPreview] = useState(false);
+  const modalData = useModalStore((s) => s.modalData);
+  const moduleId = modalData?.moduleId;
+  const { data: module, isLoading } = useModule(moduleId);
+  const { mutate: updateModule, isLoading: isUpdating } = useUpdateModule();
+
   const [categoryInput, setCategoryInput] = useState("");
   const [exampleIdeaInput, setExampleIdeaInput] = useState("");
 
@@ -52,8 +52,19 @@ function AddNewModal() {
     mode: "onChange",
   });
 
-  const cppCode = watch("codesnippet_cpp");
-  const pythonCode = watch("codesnippet_python");
+  useEffect(() => {
+    if (module) {
+      reset({
+        name: module.name || "",
+        model: module.model || "",
+        description: module.description || "",
+        category: module.category || [],
+        exampleIdeas: module.exampleIdeas || [],
+        codesnippet_cpp: module.codeSnippets?.cpp || "",
+        codesnippet_python: module.codeSnippets?.python || "",
+      });
+    }
+  }, [module, reset]);
 
   function handleAddCategory() {
     const val = categoryInput.trim();
@@ -91,54 +102,33 @@ function AddNewModal() {
     );
   }
 
-  const [isCreating, setIsCreating] = useState(false);
-
-  const onSubmit = async (data) => {
-    setIsCreating(true);
-    try {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("model", data.model || "");
-      formData.append("description", data.description || "");
-      formData.append("category", JSON.stringify(data.category || []));
-      formData.append("exampleIdeas", JSON.stringify(data.exampleIdeas || []));
-      formData.append(
-        "codeSnippets",
-        JSON.stringify({
-          cpp: data.codesnippet_cpp || "",
-          python: data.codesnippet_python || "",
-        })
-      );
-      if (data.image instanceof File) {
-        formData.append("file", data.image);
+  const onSubmit = (data) => {
+    if (!moduleId) return;
+    updateModule(
+      {
+        moduleId,
+        data: {
+          name: data.name,
+          model: data.model,
+          description: data.description,
+          category: data.category,
+          exampleIdeas: data.exampleIdeas,
+          codeSnippets: {
+            cpp: data.codesnippet_cpp,
+            python: data.codesnippet_python,
+          },
+        },
+      },
+      {
+        onSuccess: onClose,
       }
-
-      // Use ky client for file upload (auto adds Authorization header)
-      const res = await apiV1.post("modules", {
-        body: formData,
-        credentials: "include",
-      });
-      if (!res.ok && res.status !== 201) {
-        let err = {};
-        try {
-          err = await res.json();
-        } catch {}
-        throw new Error(err.message || "Failed to create module");
-      }
-      // onClose();
-      openModal("AddModuleModal");
-      reset();
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error("Failed to create module", err);
-      // Optionally show error to user
-    } finally {
-      setIsCreating(false);
-    }
+    );
   };
 
+  if (!isOpen || !module) return null;
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Upload New Module">
+    <Modal isOpen={isOpen} onClose={onClose} title="Edit Module">
       <form className="addnew-modal__form" onSubmit={handleSubmit(onSubmit)}>
         <div className="addnew-modal__field">
           <label className="addnew-modal__label">
@@ -148,17 +138,6 @@ function AddNewModal() {
           {errors.name && (
             <span className="addnew-modal__error">{errors.name.message}</span>
           )}
-        </div>
-        <div className="addnew-modal__field">
-          <label className="addnew-modal__label">
-            Module Image<span className="addnew-modal__required">*</span>
-          </label>
-          <ImageInputRHF
-            name="image"
-            setValue={setValue}
-            watch={watch}
-            error={errors.image}
-          />
         </div>
         <div className="addnew-modal__field">
           <label className="addnew-modal__label">Model</label>
@@ -197,7 +176,7 @@ function AddNewModal() {
                 (getValues("category") || []).includes(categoryInput.trim())
               }
             >
-              <Plus size={18} />
+              +
             </button>
           </div>
           <div className="addnew-modal__chiplist">
@@ -209,9 +188,7 @@ function AddNewModal() {
                 onClick={() => handleRemoveCategory(idx)}
               >
                 {cat}
-                <span className="addnew-modal__chip-delete">
-                  <X size={16} />
-                </span>
+                <span className="addnew-modal__chip-delete">×</span>
               </span>
             ))}
           </div>
@@ -243,7 +220,7 @@ function AddNewModal() {
                 )
               }
             >
-              <Plus size={18} />
+              +
             </button>
           </div>
           <div className="addnew-modal__chiplist">
@@ -255,107 +232,66 @@ function AddNewModal() {
                 onClick={() => handleRemoveExampleIdea(idx)}
               >
                 {idea}
-                <span className="addnew-modal__chip-delete">
-                  <X size={16} />
-                </span>
+                <span className="addnew-modal__chip-delete">×</span>
               </span>
             ))}
           </div>
         </div>
-        {!showPreview && (
-          <div>
-            <div className="addnew-modal__field">
-              <label className="addnew-modal__label">C++ Code Example</label>
-              <Controller
-                name="codesnippet_cpp"
-                control={control}
-                render={({ field }) => (
-                  <textarea
-                    className="addnew-modal__textarea addnew-modal__textarea--code"
-                    rows={4}
-                    {...field}
-                    placeholder="Paste C++ code here..."
-                  />
-                )}
+        <div className="addnew-modal__field">
+          <label className="addnew-modal__label">C++ Code Example</label>
+          <Controller
+            name="codesnippet_cpp"
+            control={control}
+            render={({ field }) => (
+              <textarea
+                className="addnew-modal__textarea addnew-modal__textarea--code"
+                rows={4}
+                {...field}
+                placeholder="Paste C++ code here..."
               />
-            </div>
-            <div className="addnew-modal__field">
-              <label className="addnew-modal__label">Python Code Example</label>
-              <Controller
-                name="codesnippet_python"
-                control={control}
-                render={({ field }) => (
-                  <textarea
-                    className="addnew-modal__textarea addnew-modal__textarea--code"
-                    rows={4}
-                    {...field}
-                    placeholder="Paste Python code here..."
-                  />
-                )}
-              />
-            </div>
-          </div>
-        )}
-        {showPreview && (
-          <div className="addnew-modal__preview">
-            {!cppCode && !pythonCode ? (
-              <div className="addnew-modal__codesnippet addnew-modal__codesnippet--empty">
-                <span className="addnew-modal__codesnippet-empty-msg">
-                  No code examples provided yet.
-                </span>
-              </div>
-            ) : (
-              <>
-                {cppCode && (
-                  <div className="addnew-modal__codesnippet">
-                    <div className="addnew-modal__codesnippet-label">
-                      C++ Example
-                    </div>
-                    <SyntaxHighlighter language="cpp">
-                      {cppCode}
-                    </SyntaxHighlighter>
-                  </div>
-                )}
-                {pythonCode && (
-                  <div className="addnew-modal__codesnippet">
-                    <div className="addnew-modal__codesnippet-label">
-                      Python Example
-                    </div>
-                    <SyntaxHighlighter language="python">
-                      {pythonCode}
-                    </SyntaxHighlighter>
-                  </div>
-                )}
-              </>
             )}
-          </div>
-        )}
+          />
+        </div>
+        <div className="addnew-modal__field">
+          <label className="addnew-modal__label">Python Code Example</label>
+          <Controller
+            name="codesnippet_python"
+            control={control}
+            render={({ field }) => (
+              <textarea
+                className="addnew-modal__textarea addnew-modal__textarea--code"
+                rows={4}
+                {...field}
+                placeholder="Paste Python code here..."
+              />
+            )}
+          />
+        </div>
         <div className="addnew-modal__actions">
-          <button
-            type="button"
-            className="addnew-modal__button"
-            onClick={() => setShowPreview((v) => !v)}
-          >
-            {showPreview ? "Hide" : "Show"} Code Preview
-          </button>
           <button
             type="submit"
             className={`addnew-modal__button addnew-modal__button--primary${
-              !isValid || showPreview || isCreating
-                ? " addnew-modal__button--disabled"
-                : ""
+              !isValid || isUpdating ? " addnew-modal__button--disabled" : ""
             }`}
-            disabled={!isValid || showPreview || isCreating}
-            aria-disabled={!isValid || showPreview || isCreating}
+            disabled={!isValid || isUpdating}
+            aria-disabled={!isValid || isUpdating}
             title={
               !isValid
                 ? "Please fill all required fields"
-                : isCreating
-                ? "Submitting..."
+                : isUpdating
+                ? "Saving..."
                 : undefined
             }
           >
-            {isCreating ? "Submitting..." : "Submit"}
+            {isUpdating ? "Saving..." : "Save Changes"}
+          </button>
+          <button
+            type="button"
+            className="addnew-modal__button"
+            onClick={onClose}
+            disabled={isUpdating}
+          >
+            Cancel
           </button>
         </div>
       </form>
@@ -363,4 +299,4 @@ function AddNewModal() {
   );
 }
 
-export default AddNewModal;
+export default EditModal;

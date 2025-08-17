@@ -1,13 +1,24 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Wallpaper, Plus, Minus, Pencil, Trash2, CodeXml } from "lucide-react";
 import "./ItemRow.css";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 import { useModalStore } from "../../stores/useModalStore";
+import { useAuthStore } from "../../stores/useAuthStore";
+import {
+  useUpdateInventory,
+  useDeleteInventory,
+} from "../../hooks/useInventories";
 
 function ItemRow({ item }) {
   const openModal = useModalStore((s) => s.openModal);
+  const { user } = useAuthStore();
   const [stepValue, setStepValue] = useState(1);
+  const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
+  const { mutate: updateInventory } = useUpdateInventory();
+  const { mutate: deleteInventory } = useDeleteInventory();
+
   const handleStepChange = (e) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value)) {
@@ -15,9 +26,52 @@ function ItemRow({ item }) {
     }
   };
 
-  const [imageError, setImageError] = useState(false);
   const handleImageError = () => {
     setImageError(true);
+  };
+
+  const handleIncrement = () => {
+    if (stepValue > 0) {
+      updateInventory({
+        invId: item.invId,
+        data: { quantity: item.quantity + stepValue },
+      });
+    }
+  };
+
+  const handleDecrement = () => {
+    if (stepValue > 0) {
+      const newQty = item.quantity - stepValue;
+      updateInventory({
+        invId: item.invId,
+        data: { quantity: newQty < 0 ? 0 : newQty },
+      });
+    }
+  };
+
+  const handleWikiClick = () => {
+    // If module is from base/system, use 'base' as username
+    // If module is user's own, use user.username
+    // Otherwise fallback to item.owner
+    let username = item.owner;
+    if (item.isOfficial || item.owner === "base") {
+      username = "base";
+    } else if (user && (item.owner === user.id || item.owner === user._id)) {
+      username = user.username;
+    }
+    navigate(`/wiki/${username}/${item.slug}`);
+  };
+
+  const isUserModule =
+    user && (item.owner === user.id || item.owner === user._id);
+  const handleEdit = () => {
+    if (isUserModule) {
+      openModal("EditModal", { moduleId: item._id });
+    }
+  };
+
+  const handleDelete = () => {
+    openModal("DeleteModal", { invId: item.invId });
   };
 
   return (
@@ -52,13 +106,31 @@ function ItemRow({ item }) {
               />
             </div>
             <div className="item-row__increment-buttons">
-              <Plus className="item-row__increment-button" />
-              <Minus className="item-row__increment-button" />
+              <Plus
+                className="item-row__increment-button"
+                onClick={handleIncrement}
+              />
+              <Minus
+                className="item-row__increment-button"
+                onClick={handleDecrement}
+              />
             </div>
           </div>
           <div className="item-row__edit-section">
-            <Pencil className="item-row__edit-button" />
-            <Trash2 className="item-row__edit-button" />
+            <Pencil
+              className="item-row__edit-button"
+              onClick={handleEdit}
+              style={
+                !isUserModule ? { opacity: 0.5, cursor: "not-allowed" } : {}
+              }
+              disabled={!isUserModule}
+              title={
+                isUserModule
+                  ? "Edit module"
+                  : "You can only edit your own modules"
+              }
+            />
+            <Trash2 className="item-row__edit-button" onClick={handleDelete} />
           </div>
         </div>
       </div>
@@ -88,12 +160,16 @@ function ItemRow({ item }) {
               <CodeXml
                 strokeWidth={1}
                 className="item-row__link"
-                onClick={() => openModal("CodeModal")}
+                onClick={() => openModal("CodeModal", { moduleId: item._id })}
               />
               <div className="item-row__divider"></div>
-              <Link className="item-row__link" to="/Wiki">
+              <span
+                className="item-row__link"
+                style={{ cursor: "pointer" }}
+                onClick={handleWikiClick}
+              >
                 Wiki
-              </Link>
+              </span>
             </div>
           </div>
           <div className="item-row__description">
