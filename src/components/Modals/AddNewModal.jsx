@@ -4,6 +4,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
+import { apiV1 } from "../../utils/kyClient";
+// import { useCreateModule } from "../../hooks/useModules";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { Plus, X } from "lucide-react";
 import "./AddNewModal.css";
@@ -88,11 +90,49 @@ function AddNewModal() {
     );
   }
 
-  const onSubmit = (data) => {
-    // handle form submission here
-    console.log("Form submitted:", data);
-    onClose();
-    reset();
+  const [isCreating, setIsCreating] = useState(false);
+
+  const onSubmit = async (data) => {
+    setIsCreating(true);
+    try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("model", data.model || "");
+      formData.append("description", data.description || "");
+      formData.append("category", JSON.stringify(data.category || []));
+      formData.append("exampleIdeas", JSON.stringify(data.exampleIdeas || []));
+      formData.append(
+        "codeSnippets",
+        JSON.stringify({
+          cpp: data.codesnippet_cpp || "",
+          python: data.codesnippet_python || "",
+        })
+      );
+      if (data.image instanceof File) {
+        formData.append("file", data.image);
+      }
+
+      // Use ky client for file upload (auto adds Authorization header)
+      const res = await apiV1.post("modules", {
+        body: formData,
+        credentials: "include",
+      });
+      if (!res.ok && res.status !== 201) {
+        let err = {};
+        try {
+          err = await res.json();
+        } catch {}
+        throw new Error(err.message || "Failed to create module");
+      }
+      onClose();
+      reset();
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error("Failed to create module", err);
+      // Optionally show error to user
+    } finally {
+      setIsCreating(false);
+    }
   };
 
   return (
@@ -108,7 +148,9 @@ function AddNewModal() {
           )}
         </div>
         <div className="addnew-modal__field">
-          <label className="addnew-modal__label">Module Image</label>
+          <label className="addnew-modal__label">
+            Module Image<span className="addnew-modal__required">*</span>
+          </label>
           <ImageInputRHF
             name="image"
             setValue={setValue}
@@ -297,13 +339,21 @@ function AddNewModal() {
           <button
             type="submit"
             className={`addnew-modal__button addnew-modal__button--primary${
-              !isValid || showPreview ? " addnew-modal__button--disabled" : ""
+              !isValid || showPreview || isCreating
+                ? " addnew-modal__button--disabled"
+                : ""
             }`}
-            disabled={!isValid || showPreview}
-            aria-disabled={!isValid || showPreview}
-            title={!isValid ? "Please fill all required fields" : undefined}
+            disabled={!isValid || showPreview || isCreating}
+            aria-disabled={!isValid || showPreview || isCreating}
+            title={
+              !isValid
+                ? "Please fill all required fields"
+                : isCreating
+                ? "Submitting..."
+                : undefined
+            }
           >
-            Submit
+            {isCreating ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>

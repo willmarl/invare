@@ -9,10 +9,14 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3001,
       proxy: {
-        // comment static below if not using s3 storage or not using multer at all
         "/static": {
           target: env.VITE_API_URL,
           changeOrigin: true,
+        },
+        "/v1": {
+          target: env.VITE_API_URL,
+          changeOrigin: true,
+          secure: false,
         },
       },
     },
