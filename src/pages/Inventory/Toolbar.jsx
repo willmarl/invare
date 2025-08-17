@@ -1,7 +1,17 @@
-import { useState } from "react";
-import { Funnel, Plus, Rows3, Grid3X3 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import {
+  Funnel,
+  Plus,
+  Rows3,
+  Grid3X3,
+  ChevronDown,
+  List,
+  User,
+  Sparkle,
+} from "lucide-react";
 import "./Toolbar.css";
 import { capitalizeFirstLetter } from "../../utils/helpers";
+import { useModalStore } from "../../stores/useModalStore";
 
 function Toolbar({
   viewMode,
@@ -17,6 +27,28 @@ function Toolbar({
   setSortDirection,
 }) {
   const [showSortMenu, setShowSortMenu] = useState(false);
+  const [showAddDropdown, setShowAddDropdown] = useState(false);
+  const addDropdownRef = useRef(null);
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (
+        addDropdownRef.current &&
+        !addDropdownRef.current.contains(e.target)
+      ) {
+        setShowAddDropdown(false);
+      }
+    }
+    if (showAddDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showAddDropdown]);
+  const openModal = useModalStore((s) => s.openModal);
 
   const handleSortChange = (field) => {
     setSortField(field);
@@ -120,16 +152,53 @@ function Toolbar({
           )}
         </span>
 
-        <button className="btn btn--pill toolbar__add" aria-label="Add item">
-          <Plus className="icon icon--sm" />
-          <span className="btn__label">Add Module</span>
-        </button>
+        <div className="toolbar__add-dropdown-wrapper" ref={addDropdownRef}>
+          <button
+            className="btn btn--pill toolbar__add"
+            aria-label="Add item"
+            onClick={() => setShowAddDropdown((v) => !v)}
+            type="button"
+          >
+            <Plus className="icon icon--sm" />
+            <span className="btn__label">Add Module</span>
+            <ChevronDown className="icon icon--sm toolbar__add-chevron" />
+          </button>
+          {showAddDropdown && (
+            <div className="toolbar__add-dropdown">
+              <button
+                onClick={() => openModal("AddBasicModal")}
+                className="toolbar__add-option"
+                type="button"
+              >
+                <List className="icon icon--sm toolbar__add-option-icon" />
+                <span>Add from Basic List</span>
+              </button>
+              <button
+                onClick={() => openModal("AddModuleModal")}
+                className="toolbar__add-option"
+                type="button"
+              >
+                <User className="icon icon--sm toolbar__add-option-icon" />
+                <span>Add from Your Modules</span>
+              </button>
+              <button
+                onClick={() => openModal("AddNewModal")}
+                className="toolbar__add-option"
+                type="button"
+              >
+                <Sparkle className="icon icon--sm toolbar__add-option-icon" />
+                <span>Add New Custom</span>
+              </button>
+            </div>
+          )}
+        </div>
 
         <div className="toolbar__view" aria-label="View toggles">
           <button
             onClick={() => setViewMode("grid")}
             className={
-              "btn btn--icon" + (viewMode === "grid" ? " btn_active" : "")
+              "btn btn--icon toolbar__view-btn" +
+              (viewMode === "grid" ? " btn_active" : "")
             }
             aria-label="Grid view"
           >
@@ -138,7 +207,8 @@ function Toolbar({
           <button
             onClick={() => setViewMode("row")}
             className={
-              "btn btn--icon" + (viewMode === "row" ? " btn_active" : "")
+              "btn btn--icon toolbar__view-btn" +
+              (viewMode === "row" ? " btn_active" : "")
             }
             aria-label="List view"
           >

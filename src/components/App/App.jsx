@@ -12,7 +12,9 @@ import { useAuthStore } from "../../stores/useAuthStore";
 import { useHydrateAuth } from "../../hooks/useHydrateAuth";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import { useModalStore } from "../../stores/useModalStore";
-import AddModal from "../../components/Modals/AddModal";
+import AddModuleModal from "../../components/Modals/AddModuleModal";
+import AddNewModal from "../../components/Modals/AddNewModal";
+import AddBasicModal from "../../components/Modals/AddBasicModal";
 import "./App.css";
 
 function App() {
@@ -46,7 +48,9 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-        {activeModal === "AddModal" && <AddModal />}
+        {activeModal === "AddModuleModal" && <AddModuleModal />}
+        {activeModal === "AddNewModal" && <AddNewModal />}
+        {activeModal === "AddBasicModal" && <AddBasicModal />}
       </div>
     </div>
   );

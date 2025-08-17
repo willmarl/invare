@@ -20,14 +20,16 @@
   flex-wrap: nowrap;
 }
 
+/* --- Button base --- */
 .btn {
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid #2563eb33;
   background: #fff;
+  color: #0f172a;
   cursor: pointer;
   font: 500 16px/1.2 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   transition: transform 0.06s ease, box-shadow 0.15s ease,
-    background-color 0.15s ease, border-color 0.15s ease;
+    background-color 0.15s ease, border-color 0.15s ease, color 0.15s;
   user-select: none;
   display: inline-flex;
   align-items: center;
@@ -35,7 +37,41 @@
 }
 .btn_active {
   transform: translateY(2px);
-  background-color: #f0f0f0;
+  background-color: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+.btn--pill {
+  border-radius: 14px;
+  padding: 10px 18px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+  gap: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(37, 99, 235, 0.08) 0%,
+    rgba(34, 197, 94, 0.08) 100%
+  );
+  border: 1px solid #2563eb33;
+}
+.btn--pill:active,
+.btn--pill:focus {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+.btn--icon {
+  height: 44px;
+  width: 44px;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #2563eb;
+  border: 1px solid #2563eb33;
+}
+.btn--icon:active,
+.btn--icon:focus {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
 }
 
 .btn--pill {
@@ -67,6 +103,50 @@
 .toolbar__add .btn__label {
   margin-left: 6px;
 }
+.toolbar__add-chevron {
+  margin-left: 4px;
+  transition: transform 0.2s;
+}
+.toolbar__add-dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.toolbar__add-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #2563eb33;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+  min-width: 200px;
+  z-index: 20;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toolbar__add-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: none;
+  border: none;
+  color: #0f172a;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.toolbar__add-option:hover,
+.toolbar__add-option:focus {
+  background: #2563eb;
+  color: #fff;
+}
+.toolbar__add-option-icon {
+  color: inherit;
+}
 
 .input {
   border: 1px solid rgba(0, 0, 0, 0.25);
@@ -89,6 +169,18 @@
   display: inline-flex;
   gap: 10px;
   margin-left: auto;
+}
+.toolbar__view-btn {
+  border-radius: 10px;
+  border: 1px solid #2563eb33;
+  background: #f8fafc;
+  color: #2563eb;
+  transition: background 0.15s, color 0.15s;
+}
+.toolbar__view-btn.btn_active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
 }
 
 /* Chips: wrap on desktop; enable scroll on mobile via media queries */
