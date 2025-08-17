@@ -1,3 +1,7 @@
+// Get modules by username (slug)
+export const getModulesByUsername = async (username) => {
+  return apiV1.get(`modules/wiki/${username}`).json();
+};
 import { apiV1 } from "../utils/kyClient";
 
 // Create a new module

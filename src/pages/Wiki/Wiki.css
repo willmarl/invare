@@ -1,3 +1,71 @@
 .wiki {
-  border: solid 1px blue;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(
+    90deg,
+    rgba(37, 99, 235, 0.05) 0%,
+    rgba(34, 197, 94, 0.05) 100%
+  );
+  border: 1px solid #0000001f;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 #2563eb22;
+}
+
+.wiki__title {
+  font-size: 2rem;
+  color: #2563eb;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.wiki__loading,
+.wiki__error {
+  color: #2563eb;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.wiki__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.wiki__item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px 0 #2563eb11;
+  border: 1px solid #0000001f;
+  transition: box-shadow 0.2s;
+  overflow: hidden;
+}
+.wiki__item:hover {
+  box-shadow: 0 4px 16px 0 #2563eb22;
+}
+
+.wiki__link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: #0f172a;
+  padding: 1rem;
+}
+.wiki__img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #0000001f;
+}
+.wiki__name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2563eb;
 }

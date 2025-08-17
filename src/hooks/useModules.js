@@ -5,12 +5,21 @@ import {
   getModuleById,
   getModuleBySlug,
   getModulesByOwner,
+  getModulesByUsername,
   updateModule,
   deleteModule,
   getWikiByUsernameSlug,
   updateWikiByUsernameSlug,
   deleteWikiByUsernameSlug,
 } from "../api/modules";
+// Fetch modules by username (slug)
+export function useModulesByUsername(username) {
+  return useQuery({
+    queryKey: ["modulesByUsername", username],
+    queryFn: () => getModulesByUsername(username),
+    enabled: !!username,
+  });
+}
 
 // Fetch all modules
 export function useModules() {
