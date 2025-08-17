@@ -5,7 +5,8 @@ import Toolbar from "./Toolbar";
 import Guest from "./Guest";
 import InventoryView from "./InventoryView";
 import { useInventoriesByUser } from "../../hooks/useInventories";
-import { useModulesByOwner } from "../../hooks/useModules";
+import { useQuery } from "@tanstack/react-query";
+import { getModuleById } from "../../api/modules";
 
 function Inventory() {
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
@@ -21,34 +22,44 @@ function Inventory() {
   console.log("[Inventory] userId:", userId);
   const { data: inventories = [], isLoading: invLoading } =
     useInventoriesByUser(userId);
-  const { data: modules = [], isLoading: modulesLoading } =
-    useModulesByOwner(userId);
-  console.log("[Inventory] inventories:", inventories);
-  console.log("[Inventory] modules:", modules);
+
+  // Fetch all modules in inventory by their IDs (regardless of owner)
+  const moduleIds = inventories.map((inv) => inv.moduleId).filter(Boolean);
+  const { data: modulesData = [], isLoading: modulesLoading } = useQuery({
+    queryKey: ["modulesByIds", moduleIds],
+    queryFn: async () => {
+      // Fetch all modules in parallel
+      const results = await Promise.all(
+        moduleIds.map((id) => getModuleById(id).catch(() => null))
+      );
+      return results.filter(Boolean);
+    },
+    enabled: moduleIds.length > 0,
+  });
 
   // Merge inventory and module data
   const prepedData = useMemo(() => {
-    if (!inventories.length || !modules.length) return [];
+    if (!inventories.length || !modulesData.length) return [];
     return inventories
       .map((invItem) => {
-        const module = modules.find((mod) => mod._id === invItem.moduleId);
+        const module = modulesData.find((mod) => mod._id === invItem.moduleId);
         return module
           ? { ...module, quantity: invItem.quantity, invId: invItem._id }
           : null;
       })
       .filter(Boolean);
-  }, [inventories, modules]);
+  }, [inventories, modulesData]);
 
   // Get all categories for filter
   const allCategories = useMemo(() => {
     const cats = new Set();
-    modules.forEach((mod) => {
+    modulesData.forEach((mod) => {
       if (Array.isArray(mod.category)) {
         mod.category.forEach((cat) => cats.add(cat));
       }
     });
     return Array.from(cats);
-  }, [modules]);
+  }, [modulesData]);
 
   const handleCategoryToggle = (category) => {
     if (category === "all") {
