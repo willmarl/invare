@@ -1,0 +1,223 @@
+.addnew-modal__chipinput {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.addnew-modal__chipinput-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  width: 2.2em;
+  height: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.13s;
+  font-size: 1.13em;
+  box-shadow: none;
+  outline: none;
+  border: 1.5px solid #2563eb22;
+  position: relative;
+  padding: 0;
+}
+.addnew-modal__chipinput-btn:active {
+  transform: scale(0.97);
+}
+.addnew-modal__chipinput-btn:hover:not([disabled]),
+.addnew-modal__chipinput-btn:focus-visible:not([disabled]) {
+  background: #1e40af;
+  color: #fff;
+  border: 1.5px solid #2563eb;
+}
+.addnew-modal__chipinput-btn svg {
+  transition: color 0.18s;
+}
+.addnew-modal__chipinput-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.addnew-modal__codesnippet--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+  background: #f1f5f9;
+  border-radius: 0.7em;
+  margin-bottom: 1em;
+  border: 1.5px dashed #cbd5e1;
+}
+.addnew-modal__codesnippet-empty-msg {
+  color: #64748b;
+  font-size: 1.08em;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+.addnew-modal__chiplist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 0.3em;
+}
+
+.addnew-modal__chip {
+  display: inline-flex;
+  align-items: center;
+  background: #e0e7ef;
+  color: #2563eb;
+  border-radius: 999px;
+  padding: 0.25em 0.9em 0.25em 0.8em;
+  font-size: 0.98em;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid #2563eb22;
+}
+
+.addnew-modal__chip:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.addnew-modal__chip-delete {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5em;
+  color: #dc2626;
+  opacity: 1;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+.addnew-modal__chip-delete:hover {
+  color: #b91c1c;
+}
+
+.addnew-modal__chipinput-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.addnew-modal__form {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.addnew-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: #fff;
+  padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.addnew-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.addnew-modal__label {
+  font-weight: 500;
+  color: #0f172a;
+  margin-bottom: 0.1rem;
+}
+
+.addnew-modal__required {
+  color: #dc2626;
+  margin-left: 0.2em;
+}
+
+.addnew-modal__input,
+.addnew-modal__textarea {
+  border: 1px solid #0000001f;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  background: #f8fafc;
+  color: #0f172a;
+  transition: border 0.2s;
+}
+
+.addnew-modal__input {
+  flex: 1;
+}
+
+.addnew-modal__input:focus,
+.addnew-modal__textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.addnew-modal__textarea--code {
+  font-family: "Fira Mono", "Consolas", monospace;
+  min-height: 80px;
+}
+
+.addnew-modal__error {
+  color: #dc2626;
+  font-size: 0.92em;
+  margin-top: 0.1em;
+}
+
+.addnew-modal__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.addnew-modal__button {
+  background: #f8fafc;
+  color: #0f172a;
+  border: 1px solid #0000001f;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.addnew-modal__button--primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+}
+
+.addnew-modal__button--primary.addnew-modal__button--disabled,
+.addnew-modal__button--primary:disabled,
+.addnew-modal__button--primary[aria-disabled="true"] {
+  background: #94a3b8;
+  color: #e5e7eb;
+  cursor: not-allowed;
+  opacity: 0.7;
+  border: none;
+}
+
+.addnew-modal__button:hover {
+  background: #e0e7ef;
+}
+
+.addnew-modal__button--primary:hover {
+  background: #1e40af;
+}
+
+.addnew-modal__preview {
+  margin-top: 1.2rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #0000001f;
+}
+
+.addnew-modal__codesnippet {
+  margin-bottom: 1rem;
+}
+
+.addnew-modal__codesnippet-label {
+  font-size: 0.98em;
+  font-weight: 500;
+  color: #2563eb;
+  margin-bottom: 0.3em;
+}
