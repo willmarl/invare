@@ -11,15 +11,17 @@ import AuthGuard from "../AuthGuard";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useHydrateAuth } from "../../hooks/useHydrateAuth";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
+import { useModalStore } from "../../stores/useModalStore";
+import AddModal from "../../components/Modals/AddModal";
 import "./App.css";
 
 function App() {
+  const activeModal = useModalStore((s) => s.activeModal);
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
   console.log("DEBUG", { isLoggedIn, user });
 
   useHydrateAuth();
   const isHydrated = useAuthStore((s) => s.isHydrated);
-
   if (!isHydrated) {
     return <LoadingScreen message="Restoring your session..." />;
   }
@@ -44,6 +46,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+        {activeModal === "AddModal" && <AddModal />}
       </div>
     </div>
   );
