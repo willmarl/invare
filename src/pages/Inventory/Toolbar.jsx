@@ -69,7 +69,14 @@ function Toolbar({
         aria-label="Inventory toolbar"
         style={{ position: "relative" }}
       >
-        <button className="btn btn--pill toolbar__assistant">Assistant</button>
+        <button
+          className="btn btn--pill toolbar__assistant"
+          type="button"
+          style={{ background: "#2563eb", color: "#fff" }}
+          onClick={() => openModal("AssistantModal")}
+        >
+          Assistant
+        </button>
 
         <input
           placeholder="Search"

@@ -20,6 +20,7 @@ import AddBasicModal from "../../components/Modals/AddBasicModal";
 import CodeModal from "../../components/Modals/CodeModal";
 import DeleteModal from "../../components/Modals/DeleteModal";
 import EditModal from "../../components/Modals/EditModal";
+import AssistantModal from "../../components/Modals/AssistantModal";
 import "./App.css";
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         {activeModal === "CodeModal" && <CodeModal />}
         {activeModal === "DeleteModal" && <DeleteModal />}
         {activeModal === "EditModal" && <EditModal />}
+        {activeModal === "AssistantModal" && <AssistantModal />}
       </div>
     </div>
   );
