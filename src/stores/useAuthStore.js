@@ -26,6 +26,11 @@ export const useAuthStore = create((set) => ({
 
   setHydrated: () => set({ isHydrated: true }),
   setLoading: (loading) => set({ isLoading: loading }),
+
+  updateUsername: (username) =>
+    set((state) => ({
+      user: state.user ? { ...state.user, username } : null,
+    })),
 }));
 
 console.log(
