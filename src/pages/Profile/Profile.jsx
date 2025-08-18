@@ -54,17 +54,14 @@ function Profile() {
     if (!payload.password) {
       delete payload.password;
     }
-    updateUser(
-      payload,
-      {
-        onError: (err) => setBackendError(err?.message || "Update failed"),
-        onSuccess: (updatedUser) => {
-          if (payload.username) {
-            updateAuthUsername(payload.username);
-          }
-        },
-      }
-    );
+    updateUser(payload, {
+      onError: (err) => setBackendError(err?.message || "Update failed"),
+      onSuccess: (updatedUser) => {
+        if (payload.username) {
+          updateAuthUsername(payload.username);
+        }
+      },
+    });
   };
 
   return (
