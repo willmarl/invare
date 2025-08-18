@@ -10,7 +10,6 @@ import { getModuleById } from "../../api/modules";
 
 function Inventory() {
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
-  console.log("[Inventory] user:", user);
   // Persist viewMode in localStorage
   const VIEW_MODE_KEY = "inventoryViewMode";
   const [viewMode, setViewMode] = useState(() => {
@@ -27,7 +26,6 @@ function Inventory() {
 
   // Fetch inventories for the logged-in user
   const userId = user?.id;
-  console.log("[Inventory] userId:", userId);
   const { data: inventories = [], isLoading: invLoading } =
     useInventoriesByUser(userId);
 

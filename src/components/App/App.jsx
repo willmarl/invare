@@ -26,7 +26,6 @@ import "./App.css";
 function App() {
   const activeModal = useModalStore((s) => s.activeModal);
   const { isAuthenticated: isLoggedIn, user } = useAuthStore();
-  console.log("DEBUG", { isLoggedIn, user });
 
   useHydrateAuth();
   const isHydrated = useAuthStore((s) => s.isHydrated);

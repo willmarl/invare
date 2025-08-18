@@ -32,9 +32,3 @@ export const useAuthStore = create((set) => ({
       user: state.user ? { ...state.user, username } : null,
     })),
 }));
-
-console.log(
-  "debug:",
-  useAuthStore.getState().user,
-  useAuthStore.getState().accessToken
-);
