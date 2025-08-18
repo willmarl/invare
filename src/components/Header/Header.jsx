@@ -1,5 +1,5 @@
 import Logo from "../../../public/invare-icon.svg";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { ChevronDown, ChevronUp, Menu, X } from "lucide-react";
 import { useLogout } from "../../hooks/useAuth";
@@ -13,6 +13,9 @@ function Header() {
 
   const { mutate: logout } = useLogout();
 
+  const dropdownRef = useRef(null);
+  const userButtonRef = useRef(null);
+
   const toggleDropdown = () => setIsDropdownOpen((v) => !v);
   const toggleMobileNav = () => setIsMobileNavOpen((v) => !v);
 
@@ -20,6 +23,25 @@ function Header() {
 
   const customClassName = ({ isActive }) =>
     "header__nav-link" + (isActive ? " header__nav-link_active" : "");
+
+  // Close dropdown if click outside
+  useEffect(() => {
+    if (!isDropdownOpen) return;
+    function handleClickOutside(event) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        userButtonRef.current &&
+        !userButtonRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <header className="header">
@@ -78,6 +100,7 @@ function Header() {
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") toggleDropdown();
                 }}
+                ref={userButtonRef}
               >
                 {/* <img src="#" alt="" className="header__user-image" /> */}
                 <span className="header__username">{user?.username}</span>
@@ -92,10 +115,14 @@ function Header() {
                 </button>
               </div>
               {isDropdownOpen && (
-                <div className="header__dropdown" role="menu">
+                <div className="header__dropdown" role="menu" ref={dropdownRef}>
                   <ul className="header__dropdown-list">
                     <li>
-                      <NavLink to="/profile" className="header__dropdown-link">
+                      <NavLink
+                        to="/profile"
+                        className="header__dropdown-link"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
                         Profile
                       </NavLink>
                     </li>
@@ -106,7 +133,10 @@ function Header() {
                     </li> */}
                     <li>
                       <button
-                        onClick={() => logout()}
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          logout();
+                        }}
                         className="header__dropdown-button"
                       >
                         Sign Out
