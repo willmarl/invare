@@ -16,8 +16,7 @@ function Built() {
           <strong>AI:</strong> OpenAI GPT API (inventory-aware prompts)
         </li>
         <li>
-          <strong>Deployment:</strong> Docker-friendly for local or public
-          hosting
+          <strong>Deployment:</strong> Friendly for local or public hosting
         </li>
       </ul>
     </section>
